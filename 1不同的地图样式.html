@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>最简单的运行Leafletjs</title>
+  <link rel="stylesheet" href="./static/css/leaflet.css">
+  <script src="./static/js/jquery.js"></script>
+  <script src="./static/js/leaflet.js"></script>
+
+  <style>
+    #map-container {
+      width: 600px;
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map-container"></div>
+  <script>
+      function initStyleAmMonitoring() {
+          $('#map-container').css("height", ($(window).height()-50) + 'px');
+          $('#map-container').css("width", ($(window).width()-50) + 'px');
+      }
+      initStyleAmMonitoring();
+      $(window).resize(function () {
+          initStyleAmMonitoring();
+      });
+
+     //初始化地图 大小和位置
+      var m = L.map('map-container').setView([33.42,104.21], 5);
+    //地图样式不同
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 6, //放最大的 默认是5
+        minZoom: 3, //放最小的
+        attribution: '左下角要显示的内容，<a href="http://baidu.com">连接百度</a>',
+        id: 'mapbox.streets',
+
+	}).addTo(m);
+
+
+
+  </script>
+</body>
+</html>

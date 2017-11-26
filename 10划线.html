@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基于Click事件的简单效果</title>
+    <link rel="stylesheet" href="./static/css/leaflet.css">
+    <script src="./static/js/leaflet.js"></script>
+    <script src="./static/js/jquery.js"></script>
+    <style>
+        #map-container {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+<div id="map-container"></div>
+<script>
+    function initStyleAmMonitoring() {
+        $('#map-container').css("height", ($(window).height()-50) + 'px');
+        $('#map-container').css("width", ($(window).width()-50) + 'px');
+    }
+    initStyleAmMonitoring();
+    $(window).resize(function () {
+        initStyleAmMonitoring();
+    });
+
+    var m = L.map('map-container').setView([36.52,120.31], 7);
+
+    var tileAddress = 'https://api.mapbox.com/styles/v1/yqcim/';
+    tileAddress += 'cizh1ma3400ez2so5x1anhuzo/tiles/256/{z}/{x}/{y}';
+    tileAddress += '?access_token=pk.eyJ1IjoieXFjaW0iLCJhIjoiY2l6ZmhnZjEx';
+    tileAddress += 'MDBhajJ4cGxnNGN5MnhpdCJ9.pcZtdfk8mSFboCdwqkvW6g';
+
+    var attribution = 'Map data &copy; <a href="http://openstreetmap.org">';
+    attribution += 'OpenStreetMap</a> contributors, '
+    attribution += '<a href="http://creativecommons.org/licenses/by-sa/2.0/">';
+    attribution += 'CC-BY-SA</a>, ';
+    attribution += 'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+
+    L.tileLayer(tileAddress, {
+        maxZoom: 18,
+        attribution: attribution,
+        id: 'mapbox.streets',
+    }).addTo(m);
+
+
+    var latlngs = [
+        [[45.51, -122.68],
+        [37.77, -122.43],
+        [34.04, -118.2]],
+        [[40.78, -73.91],
+        [41.83, -87.62],
+        [32.76, -96.72]]
+    ];
+    var mypop = L.popup();
+
+    var polyline = L.polyline(latlngs, {
+        color: '#3388ff',
+        stroke:true, //将其设置false为禁用多边形或圆形上的边框。
+        weight:'3',
+        opacity:'.8'
+    }).addTo(m);
+    m.fitBounds(polyline.getBounds());
+
+    L.DomEvent.on(polyline, 'mouseenter', function (e) {
+        var content = '<div>设置内容：<span>2345</span><br>';
+        content += e.latlng.toString();
+        mypop.setLatLng(e.latlng).setContent(content).openOn(m);
+
+    });
+    L.DomEvent.on(polyline, 'mouseleave', function (e) {
+        console.log("离开")
+    });
+
+</script>
+</body>
+</html>
