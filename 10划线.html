@@ -44,7 +44,6 @@
         id: 'mapbox.streets',
     }).addTo(m);
 
-
     var latlngs = [
         [[45.51, -122.68],
         [37.77, -122.43],
@@ -70,7 +69,11 @@
 
     });
     L.DomEvent.on(polyline, 'mouseleave', function (e) {
-        console.log("离开")
+        var content = '<div>设置内容：<span>2345</span><br>';
+        content += e.latlng.toString();
+        mypop.setLatLng(e.latlng).setContent(content)
+        console.log(mypop)
+
     });
 
 </script>

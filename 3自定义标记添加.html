@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="./static/css/leaflet.css">
+    <script src="./static/js/leaflet.js"></script>
+    <script src="./static/js/jquery.js"></script>
+
+</head>
+<body>
+<h1 style="position: absolute;left: 0;top: 0;z-index:3000">可点击图标</h1>
+<div class="am-g">
+    <div id="map" class="" style="height: 1080px;width: 1920px">8</div>
+</div>
+
+<script>
+    var map = L.map('map', {
+        zoomControl: false,
+        center: [39.85, 116.4],
+        zoom: 12
+    });
+    L.tileLayer('http://webrd0{s}.is.autonavi.com/appmaptile?' +
+        'lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+        {subdomains: ["1", "2", "3", "4"]}).addTo(map);
+
+//事件
+
+
+    var greenIcon = L.icon({
+        iconUrl: './static/images/leaf-green.png',
+        shadowUrl: './static/images/leaf-shadow.png',
+        iconSize:     [38, 95], // 图标的大小
+        shadowSize:   [50, 64], // 阴影大小
+        iconAnchor:   [22, 94], // 图标标记的位置
+        shadowAnchor: [4, 62],  //影子也一样
+        popupAnchor:  [-3, -76] // 点，弹出打开相对于iconanchor
+    });
+    L.marker([39.85, 116.4], {icon: greenIcon}).addTo(map)
+//事件
+    .bindPopup("点击气泡提示")
+
+//    .on('mouseover', function () {
+//        alert('1')
+//    }).on('mouseout', function (e) {
+//         alert('2')
+//     })
+
+</script>
+</body>
+</html>

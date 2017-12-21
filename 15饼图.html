@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>leaflet</title>
+    <!--<link rel="stylesheet" href="./leaflet.css" type="text/css">-->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <style>
+        #map{
+            height: 360px;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+<div id = 'map'></div>
+<script type="text/javascript" src="./leafletsrc.js"></script>
+<script type="text/javascript" src="./heatmap.js"></script>
+<script type="text/javascript" src="./heatmap-leaflet.js"></script>
+<script type="text/javascript" src="./test.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    var url = "http://localhost:8080/mapTest/offlineMapTiles/{z}/{x}/{y}";
+    //z表示地图的缩放级别
+    //x表示地图瓦片的横向坐标
+    //y表示地图瓦片的纵向坐标
+    //其中的路径就是保存地图瓦片的的路径
+    var tilemap = new L.TileLayer(url);
+    //加载地图的底层对象
+    var mapcenter = new L.latLng(21.5,67.89);
+    //地图的中心点的对象
+</script>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./static/css/leaflet.css">
+    <script src="./static/js/leaflet.js"></script>
+    <script src="./static/js/jquery.js"></script>
+</head>
+<body>
+
+<div class="am-g">
+    <div id="map" class="" style="height: 1080px;width: 1920px">8</div>
+</div>
+
+<script>
+    var map = L.map('map', {
+        zoomControl: false,
+        center: [39.85, 116.4],
+        zoom: 5
+    });
+    L.tileLayer('http://webrd0{s}.is.autonavi.com/appmaptile?' +
+        'lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+        {subdomains: ["1", "2", "3", "4"]}).addTo(map);
+
+ //json方式的传输数据
+
+// 标记
+    var geojsonFeature = {
+        "type": "Feature",
+        "properties": {
+            "name": "库尔斯球场",
+            "amenity": "棒球场",
+            "popupContent": "这就是落基山脉的所在地。!"
+        },
+        "geometry": {
+            "type": "Point", //标记 类型
+            "coordinates": [116.4, 39.75621]
+        }
+    };
+    L.geoJSON(geojsonFeature).addTo(map);
+
+//两条线
+    var myLines = [{
+        "type": "LineString", //这是一个线 标记
+        "coordinates": [[100, 40], [105, 45], [110, 55]]
+    }, {
+        "type": "LineString",
+        "coordinates": [[105, 40], [110, 45], [115, 55]]
+    }];
+
+    var myStyle = {
+        "color": "#ff7800",
+        "weight": 5,
+        "opacity": 0.65
+    };
+
+    L.geoJSON(myLines, {
+        style: myStyle
+    }).addTo(map);
+
+//两个矩形
+    var states = [{
+        "type": "Feature",
+        "properties": {"party": "Republican"},
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [104.05, 48.99],
+                [97.22,  48.98],
+                [96.58,  45.94],
+                [104.03, 45.94],
+                [104.05, 48.99]
+            ]]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {"party": "Democrat"},
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [109.05, 41.00],
+                [102.06, 40.99],
+                [102.03, 36.99],
+                [109.04, 36.99],
+                [109.05, 41.00]
+            ]]
+        }
+    }];
+
+    L.geoJSON(states, {
+        style: function(feature) {
+            switch (feature.properties.party) {
+                case 'Republican': return {color: "#ff0000"};
+                case 'Democrat':   return {color: "#0000ff"};
+            }
+        }
+    }).addTo(map);
+
+//json方式的点击事件
+    function onEachFeature(feature, layer) {
+        // 这个特征有一个属性叫popupcontent？
+        if (feature.properties && feature.properties.popupContent) {
+            layer.bindPopup('弹窗弹出:'+feature.properties.popupContent);
+        }
+    }
+
+    var geojsonFeature2 = {
+        "type": "Feature",
+        "properties": {
+            "name": "库尔斯球场",
+            "amenity": "棒球场",
+            "popupContent": "点击后可以通过提示我们需要的内容"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [104.99404, 39.75631]
+        }
+    };
+    L.geoJSON(geojsonFeature2, {
+        onEachFeature: onEachFeature, //点击事件
+    }).addTo(map);
+
+//控制突变的显示隐藏
+
+    var someFeatures = [{
+        "type": "Feature",
+        "properties": {
+            "name": "库尔斯球场",
+            "show_on_map": true //控制图标的显示和隐藏
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [110.99404, 39.75621]
+        }
+    }, {
+        "type": "Feature",
+        "properties": {
+            "name": "布希场",
+            "show_on_map": false //控制图标的显示和隐藏
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [108.98404, 39.74621]
+        }
+    }];
+
+    L.geoJSON(someFeatures, {
+        filter: function(feature, layer) {
+            return feature.properties.show_on_map;
+        }
+    }).addTo(map);
+</script>
+</body>
+</html>

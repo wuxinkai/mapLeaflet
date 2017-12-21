@@ -32,23 +32,23 @@
     tileAddress += '?access_token=pk.eyJ1IjoieXFjaW0iLCJhIjoiY2l6ZmhnZjEx';
     tileAddress += 'MDBhajJ4cGxnNGN5MnhpdCJ9.pcZtdfk8mSFboCdwqkvW6g';
     
-    var attribution = 'Map data &copy; <a href="http://openstreetmap.org">';
-    attribution += 'OpenStreetMap</a> contributors, '
-    attribution += '<a href="http://creativecommons.org/licenses/by-sa/2.0/">';
-    attribution += 'CC-BY-SA</a>, ';
-    attribution += 'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+//    var attribution = 'Map data &copy; <a href="http://openstreetmap.org">';
+//    attribution += 'OpenStreetMap</a> contributors, '
+//    attribution += '<a href="http://creativecommons.org/licenses/by-sa/2.0/">';
+//    attribution += 'CC-BY-SA</a>, ';
+//    attribution += 'Imagery © <a href="http://mapbox.com">Mapbox</a>';
 
     L.tileLayer(tileAddress, {
       maxZoom: 18,
-      attribution: attribution,
+//      attribution: attribution,
       id: 'mapbox.streets'
     }).addTo(m);
 
     // 标记
-    var marker = L.marker([36.52,120.31]).addTo(m);    
-    // 点击事件
-    //openPopup
-    marker.bindPopup('这是个Marker').openPopup();
+    var marker = L.marker([36.52,120.31]).addTo(m);
+     // bindPopup 是点击后要显示的内容，可以添加标签
+     // 点击事件
+    marker.bindPopup('<a style="display: block;width: 200px;height: 200px;background: pink" href="http://baidu.com">这是一个事件可以跳转到百度</a>').openPopup(); //openPopup 是直接打开的意思  不添加openPopup是关闭
     
     // 创建一个圆
     var circle = L.circle([36.52,120.31], {
@@ -57,6 +57,7 @@
       fillOpacity: 0.5,
       radius: 10000
     }).addTo(m);
+
     // 点击圆
     circle.bindPopup('我是个圆');
 

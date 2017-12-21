@@ -26,7 +26,7 @@
       });
 
 
-    var m = L.map('map-container').setView([36.52,120.31], 7);
+    var m = L.map('map-container').setView([39.26,115.25], 7);
 
     var tileAddress = 'https://api.mapbox.com/styles/v1/yqcim/';
     tileAddress += 'cizh1ma3400ez2so5x1anhuzo/tiles/256/{z}/{x}/{y}';
@@ -49,10 +49,10 @@
     //Popup图层
     // setLatLng设置弹出窗口打开的地理点。
     // setContent设置弹出窗口的HTML内容。如果一个函数被传递，源图层将被传递给函数。该函数应该返回一个String或HTMLElement在弹出式中使用。
-    var popup = L.popup().setLatLng([35.5,120]).setContent('俺是一个Popup图层').addTo(m);
+    var popup = L.popup().setLatLng([39.26,115.25]).setContent('俺是一个Popup图层').addTo(m);
 
-
-    marker.bindTooltip("my tooltip text").openTooltip();
+//气泡提示语
+      popup.bindTooltip("my tooltip text").openTooltip();
 
   </script>
 </body>
