@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TesscommMap</title>
+    <meta charset="utf-8" />
+     <link rel="stylesheet" href="leaflet/dist/leaflet.css">
+   <script src="leaflet/dist/leaflet.js"></script>
+
+
+    <script src="leaflet/dist/leaflet-heat.js"></script>
+
+    <script src="leaflet/dist/points.js"></script>
+</head>
+<body>
+    <div id="mapid" style="height: 600px; margin-top: 50px"></div>
+    <script>
+var mymap = L.map('mapid').setView([39.90, 116.4], 15);
+L.tileLayer('http://mt0.google.cn/vt/lyrs=m@167000000&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}').addTo(mymap);
+
+addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
+
+var heat = L.heatLayer(addressPoints).addTo(mymap);
+    </script>
+</body>
+</html>
