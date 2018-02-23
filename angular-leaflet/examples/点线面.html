@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="../dist/angular-leaflet-directive.js"></script>
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+    <style type="text/css">
+        #mapid { height: 850px;border: 1px solid red }
+    </style>
+</head>
+<body>
+<div id="mapid"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // L.map()就是捕获一个<div id="map"></div>
+    //setView 设置地图中心点的经纬度和比例尺，作为用户的视图区域。
+    var mymap = L.map('mapid').setView([39.9788, 116.30226], 14);
+
+    //L.tileLayer就是矢量瓦片底图，用对应的URL上找对应的z，y，x
+    //{s}是分布式服务器快速选取，一般都是1-4
+    //addTo(mymap);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 16,  //地图的最大视图。可以重写地图图层的maxZoom.
+        id: 'your.mapbox.project.id',
+        accessToken: 'your.mapbox.public.access.token'
+    }).addTo(mymap);
+
+
+    //添加一个圆是相同的(除了指定半径米作为第二个参数),但允许您控制看起来如何通过选择在创建对象时作为最后一个参数:
+    // L.marker就是图标
+    // bindPopup是绑定的冒泡提示 里面可以包装任意的innerHTML元素
+    //openPopup是开启提示的方法
+    L.marker([39.9788, 116.30226]).addTo(mymap)
+        .bindPopup("北京大厦<br>").openPopup();
+    //标志
+    L.circle([39.9908, 116.26625], 500, {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5
+    }).addTo(mymap).bindPopup("颐和园欢迎你");
+    //多边形
+    L.polygon([
+        [39.92096, 116.38591],
+        [39.91079, 116.38676],
+        [39.91118, 116.3962],
+        [39.92014, 116.39482]
+    ]).addTo(mymap).bindPopup("故宫");
+
+    //我是一个独立的弹出
+    var popup = L.popup().setLatLng([39.96916, 116.28591]).setContent("我是一个独立的弹出").openOn(mymap);
+
+    //地图事件
+    function onMapClick(e) {
+        console.log("你点击地图 " + e.latlng);
+    }
+    mymap.on('click', onMapClick);
+
+    //在地图上直接显示地图坐标
+    var popup = L.popup();
+    function onMapClick(e) {
+        popup.setLatLng(e.latlng).setContent("你点击地图 " + e.latlng.toString()).openOn(mymap);
+    }
+
+    mymap.on('click', onMapClick);
+    //比例尺
+    L.control.scale().addTo(mymap);  //比例尺
+    L.control.attribution({ position: 'bottomleft', prefix: 'myMap' }).addTo(mymap);
+    //放大缩小
+    L.control.zoom({ zoomInTitle: '放大', zoomOutTitle: '缩小', position: 'topright' }).addTo(mymap );
+
+
+
+</script>

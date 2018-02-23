@@ -1,0 +1,14 @@
+{
+  "name": "webgl-heatmap-leaflet",
+  "homepage": "https://github.com/ursudio/webgl-heatmap-leaflet",
+  "version": "0.2.6",
+  "_release": "0.2.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.6",
+    "commit": "5e4e01d6035768d517e44551e18fb630daf94b97"
+  },
+  "_source": "https://github.com/ursudio/webgl-heatmap-leaflet.git",
+  "_target": "*",
+  "_originalSource": "webgl-heatmap-leaflet"
+}
